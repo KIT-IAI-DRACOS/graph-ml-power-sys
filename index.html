@@ -13,10 +13,10 @@
         :root {
             --primary: #2c3e50;
             --secondary: #34495e;
-            --accent: #3498db;
-            --bg: #f8f9fa;
+            --accent: #4878a0;
+            --bg: #f4f5f7;
             --card-bg: #ffffff;
-            --border: #e0e0e0;
+            --border: #dde1e7;
         }
 
         body {
@@ -56,9 +56,6 @@
         
         h1 { color: var(--primary); margin-bottom: 5px; }
         .subtitle { color: #666; font-size: 1.1em; margin-bottom: 10px; }
-        .paper-link { font-weight: bold; color: var(--accent); text-decoration: none; background: #eef2f7; padding: 5px 10px; border-radius: 4px; }
-        .paper-link:hover { background: #dfe6ef; }
-
         .upload-container {
             background: #fff;
             border: 2px solid #ccc; 
@@ -98,7 +95,6 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             border: 1px solid var(--border);
-            min-height: 350px;
             position: relative;
         }
         
@@ -112,10 +108,10 @@
         /* About Section */
         .about-section {
             background: var(--card-bg);
-            padding: 15px 20px;
+            padding: 12px 20px;
             border-radius: 8px;
             border: 1px solid var(--border);
-            margin-bottom: 30px;
+            margin-bottom: 12px;
         }
         
         details summary { cursor: pointer; font-weight: bold; color: var(--primary); }
@@ -173,14 +169,14 @@
         .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
         
         /* Category specific colors */
-        .chip.cat-forecasting.active { background-color: #3498db; border-color: #3498db; }
-        .chip.cat-analysis.active { background-color: #2ecc71; border-color: #2ecc71; }
-        .chip.cat-opt.active { background-color: #f1c40f; border-color: #f1c40f; color: #333; }
-        .chip.cat-faults.active { background-color: #e74c3c; border-color: #e74c3c; }
-        .chip.cat-cyber.active { background-color: #9b59b6; border-color: #9b59b6; }
-        .chip.cat-data.active { background-color: #1abc9c; border-color: #1abc9c; }
-        .chip.cat-found.active { background-color: #7f8c8d; border-color: #7f8c8d; }
-        .chip.cat-emerging.active { background-color: #e67e22; border-color: #e67e22; }
+        .chip.cat-forecasting.active { background-color: #4878a0; border-color: #4878a0; }
+        .chip.cat-analysis.active    { background-color: #4a8c65; border-color: #4a8c65; }
+        .chip.cat-opt.active         { background-color: #a07c30; border-color: #a07c30; }
+        .chip.cat-faults.active      { background-color: #a04848; border-color: #a04848; }
+        .chip.cat-cyber.active       { background-color: #6a5098; border-color: #6a5098; }
+        .chip.cat-data.active        { background-color: #3a8878; border-color: #3a8878; }
+        .chip.cat-found.active       { background-color: #5e7072; border-color: #5e7072; }
+        .chip.cat-emerging.active    { background-color: #a86030; border-color: #a86030; }
 
         /* Paper List */
         .paper-list { display: flex; flex-direction: column; gap: 15px; }
@@ -195,24 +191,24 @@
         }
         .paper-item:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-        .paper-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-        .paper-title { font-size: 1.15em; font-weight: 600; color: var(--primary); text-decoration: none; }
+        .paper-title { font-size: 1.1em; font-weight: 600; color: var(--primary); text-decoration: none; display: block; margin-bottom: 4px; }
         .paper-title:hover { text-decoration: underline; }
 
-        .paper-meta { font-size: 0.9em; color: #666; margin: 5px 0 10px 0; }
+        .paper-meta { font-size: 0.85em; color: #666; margin: 0 0 10px 0; }
+
+        .paper-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
         .item-type-badge {
             font-size: 0.75em;
             padding: 2px 7px;
             border-radius: 4px;
-            margin-left: 8px;
             display: inline-block;
             font-weight: 500;
         }
-        .item-type-badge.journal    { background: #e8f4fd; color: #1a6fa8; border: 1px solid #b8d9f0; }
-        .item-type-badge.conference { background: #eafaf1; color: #1a7a4a; border: 1px solid #a9dfbf; }
-        .item-type-badge.preprint   { background: #fef9e7; color: #9a7d0a; border: 1px solid #f9e79f; }
-        .item-type-badge.other      { background: #f2f3f4; color: #555;    border: 1px solid #d5d8dc; }
+        .item-type-badge.journal,
+        .item-type-badge.conference,
+        .item-type-badge.preprint,
+        .item-type-badge.other { background: #f0f1f3; color: #555; border: 1px solid #d0d3d8; }
 
         .paper-tag {
             display: inline-block;
@@ -243,47 +239,15 @@
     <header>
         <h1>Graph Machine Learning in Power Systems</h1>
         <div class="subtitle">A curated literature review and resource list</div>
-        <a href="#" class="paper-link">Check out paper: Link TBA</a>
     </header>
 
     <div class="upload-container" id="loadingSection">
         <div class="upload-text">
             <h3><i class="fas fa-spinner fa-pulse"></i> Loading Data...</h3>
             <div class="spinner"></div>
-            <p>Attempting to load **DRACOS.csv** from the repository.</p>
+            <p>Attempting to load <strong>DRACOS.csv</strong> from the repository.</p>
         </div>
     </div>
-    <section class="about-section">
-        <details>
-            <summary><i class="fas fa-info-circle"></i> About the Categories (Legend)</summary>
-            <div class="tag-desc">
-                <div class="tag-card" style="border-left-color: #3498db;">
-                    <strong>Forecasting</strong> Input prediction (Load, Wind, PV, Price).
-                </div>
-                <div class="tag-card" style="border-left-color: #2ecc71;">
-                    <strong>Grid Topology & State</strong> Physics emulation, Power Flow, State Estimation.
-                </div>
-                <div class="tag-card" style="border-left-color: #f1c40f;">
-                    <strong>Optimization & Control</strong> OPF, Voltage Control, Unit Commitment.
-                </div>
-                <div class="tag-card" style="border-left-color: #e74c3c;">
-                    <strong>Stability & Reliability</strong> Faults, Transient stability, Cascading failures.
-                </div>
-                <div class="tag-card" style="border-left-color: #9b59b6;">
-                    <strong>Cybersecurity</strong> FDIA, Theft detection, Cyber-physical attacks.
-                </div>
-                <div class="tag-card" style="border-left-color: #1abc9c;">
-                    <strong>Data Management</strong> Imputation, Synthetic data, Digital Twins.
-                </div>
-                <div class="tag-card" style="border-left-color: #7f8c8d;">
-                    <strong>Foundational</strong> Surveys, Benchmarks, Datasets, Theory.
-                </div>
-                <div class="tag-card" style="border-left-color: #e67e22;">
-                    <strong>Emerging Apps</strong> Markets, Planning, Asset Management.
-                </div>
-            </div>
-        </details>
-    </section>
 
     <div class="dashboard" id="dashboardSection">
         <div class="chart-container">
@@ -297,7 +261,6 @@
     </div>
 
     <div class="controls-panel" id="controlsSection">
-        
         <div class="search-sort-row">
             <input type="text" id="searchInput" placeholder="Search by title, author, or keywords...">
             <select id="sortSelect">
@@ -307,18 +270,50 @@
         </div>
 
         <div class="filter-group">
-            <span class="filter-label">Filter by Category (Select multiple):</span>
+            <span class="filter-label">Category</span>
             <div class="chips-container" id="categoryChips"></div>
         </div>
 
         <div class="filter-group">
-            <span class="filter-label">Filter by Year (Select multiple):</span>
+            <span class="filter-label">Year</span>
             <div class="chips-container" id="yearChips"></div>
         </div>
+    </div>
 
-        <div style="text-align: right; color: #666; font-size: 0.9em; margin-top: 10px;">
-            Showing <strong id="countDisplay">0</strong> papers
-        </div>
+    <section class="about-section">
+        <details>
+            <summary><i class="fas fa-info-circle"></i> Category Legend</summary>
+            <div class="tag-desc">
+                <div class="tag-card" style="border-left-color: #4878a0;">
+                    <strong>Forecasting</strong> Input prediction (Load, Wind, PV, Price).
+                </div>
+                <div class="tag-card" style="border-left-color: #4a8c65;">
+                    <strong>Grid Topology & State</strong> Physics emulation, Power Flow, State Estimation.
+                </div>
+                <div class="tag-card" style="border-left-color: #a07c30;">
+                    <strong>Optimization & Control</strong> OPF, Voltage Control, Unit Commitment.
+                </div>
+                <div class="tag-card" style="border-left-color: #a04848;">
+                    <strong>Stability & Reliability</strong> Faults, Transient stability, Cascading failures.
+                </div>
+                <div class="tag-card" style="border-left-color: #6a5098;">
+                    <strong>Cybersecurity</strong> FDIA, Theft detection, Cyber-physical attacks.
+                </div>
+                <div class="tag-card" style="border-left-color: #3a8878;">
+                    <strong>Data Management</strong> Imputation, Synthetic data, Digital Twins.
+                </div>
+                <div class="tag-card" style="border-left-color: #5e7072;">
+                    <strong>Foundational</strong> Surveys, Benchmarks, Datasets, Theory.
+                </div>
+                <div class="tag-card" style="border-left-color: #a86030;">
+                    <strong>Emerging Apps</strong> Markets, Planning, Asset Management.
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <div style="color: #666; font-size: 0.85em; margin-bottom: 8px;">
+        Showing <strong id="countDisplay">0</strong> papers
     </div>
 
     <div class="paper-list" id="paperList"></div>
@@ -344,15 +339,15 @@
     };
 
     const COLOR_MAP = {
-        'Forecasting': '#3498db',
-        'Grid Topology & State': '#2ecc71',
-        'Optimization & Control': '#f1c40f',
-        'Stability & Reliability': '#e74c3c',
-        'Cybersecurity': '#9b59b6',
-        'Data Management': '#1abc9c',
-        'Foundational & Surveys': '#7f8c8d',
-        'Emerging Apps': '#e67e22',
-        'Other': '#95a5a6'
+        'Forecasting': '#4878a0',
+        'Grid Topology & State': '#4a8c65',
+        'Optimization & Control': '#a07c30',
+        'Stability & Reliability': '#a04848',
+        'Cybersecurity': '#6a5098',
+        'Data Management': '#3a8878',
+        'Foundational & Surveys': '#5e7072',
+        'Emerging Apps': '#a86030',
+        'Other': '#8a9399'
     };
 
     const CLASS_MAP = {
@@ -538,14 +533,12 @@
             const typeClass = typeClasses[p.itemType] || 'other';
 
             div.innerHTML = `
-                <div class="paper-header">
-                    <a href="${p.url}" class="paper-title" target="_blank">${p.title}</a>
-                </div>
-                <div class="paper-meta">
-                    <strong>${p.year}</strong> &bull; ${p.author}
+                <a href="${p.url}" class="paper-title" target="_blank">${p.title}</a>
+                <div class="paper-meta"><strong>${p.year}</strong> &bull; ${p.author}</div>
+                <div class="paper-footer">
+                    <span class="paper-tag" style="background-color: ${COLOR_MAP[p.category]}">${p.category}</span>
                     ${typeLabel ? `<span class="item-type-badge ${typeClass}">${typeLabel}</span>` : ''}
                 </div>
-                <span class="paper-tag" style="background-color: ${COLOR_MAP[p.category]}">${p.category}</span>
             `;
             container.appendChild(div);
         });
