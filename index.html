@@ -200,19 +200,19 @@
         .paper-title:hover { text-decoration: underline; }
 
         .paper-meta { font-size: 0.9em; color: #666; margin: 5px 0 10px 0; }
-        
-        .citation-badge {
-            font-size: 0.8em;
-            background: #fff3cd;
-            color: #856404;
-            padding: 2px 8px;
+
+        .item-type-badge {
+            font-size: 0.75em;
+            padding: 2px 7px;
             border-radius: 4px;
-            border: 1px solid #ffeeba;
-            margin-left: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            margin-left: 8px;
+            display: inline-block;
+            font-weight: 500;
         }
+        .item-type-badge.journal    { background: #e8f4fd; color: #1a6fa8; border: 1px solid #b8d9f0; }
+        .item-type-badge.conference { background: #eafaf1; color: #1a7a4a; border: 1px solid #a9dfbf; }
+        .item-type-badge.preprint   { background: #fef9e7; color: #9a7d0a; border: 1px solid #f9e79f; }
+        .item-type-badge.other      { background: #f2f3f4; color: #555;    border: 1px solid #d5d8dc; }
 
         .paper-tag {
             display: inline-block;
@@ -303,7 +303,6 @@
             <select id="sortSelect">
                 <option value="year-desc">Newest First</option>
                 <option value="year-asc">Oldest First</option>
-                <option value="citations">Most Cited</option>
             </select>
         </div>
 
@@ -384,13 +383,6 @@
         return 'Other';
     }
 
-    function getCitations(extraStr) {
-        if (!extraStr) return -1;
-        const match = extraStr.match(/(\d+)\s*citations/i) || extraStr.match(/citation count\s*(\d+)/i);
-        return match ? parseInt(match[1]) : -1;
-    }
-
-    
     // Automatically loads the CSV from the URL
     function autoLoadCSV() {
         const loadingSection = document.getElementById('loadingSection');
@@ -445,7 +437,7 @@
                     year: year,
                     url: row['Url'] || '#',
                     category: category,
-                    citations: getCitations(row['Extra']),
+                    itemType: row['Item Type'] || '',
                     tags: row['Manual Tags']
                 };
             })
@@ -515,9 +507,7 @@
             return textMatch && catMatch && yearMatch;
         });
 
-        if (sortMode === 'citations') {
-            filtered.sort((a, b) => b.citations - a.citations);
-        } else if (sortMode === 'year-asc') {
+        if (sortMode === 'year-asc') {
             filtered.sort((a, b) => a.year - b.year);
         } else {
             filtered.sort((a, b) => b.year - a.year);
@@ -542,10 +532,10 @@
             div.className = 'paper-item';
             div.style.borderLeftColor = COLOR_MAP[p.category] || '#ccc';
 
-            let citationHtml = '';
-            if (p.citations >= 0) {
-                citationHtml = `<span class="citation-badge" title="Citations"><i class="fas fa-quote-right"></i> ${p.citations}</span>`;
-            }
+            const typeLabels = { journalArticle: 'Journal', conferencePaper: 'Conference', preprint: 'Preprint', book: 'Book' };
+            const typeClasses = { journalArticle: 'journal', conferencePaper: 'conference', preprint: 'preprint' };
+            const typeLabel = typeLabels[p.itemType] || p.itemType;
+            const typeClass = typeClasses[p.itemType] || 'other';
 
             div.innerHTML = `
                 <div class="paper-header">
@@ -553,7 +543,7 @@
                 </div>
                 <div class="paper-meta">
                     <strong>${p.year}</strong> &bull; ${p.author}
-                    ${citationHtml}
+                    ${typeLabel ? `<span class="item-type-badge ${typeClass}">${typeLabel}</span>` : ''}
                 </div>
                 <span class="paper-tag" style="background-color: ${COLOR_MAP[p.category]}">${p.category}</span>
             `;
