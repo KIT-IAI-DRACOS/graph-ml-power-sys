@@ -12,33 +12,84 @@
     <style>
         :root {
             --primary: #2c3e50;
-            --secondary: #34495e;
             --accent: #4878a0;
             --bg: #f4f5f7;
             --card-bg: #ffffff;
             --border: #dde1e7;
+            --text: #333333;
+            --text-muted: #666666;
+            --top-bar-bg: #e8f4f8;
+            --top-bar-border: #d0e1e8;
+            --chip-bg: #ffffff;
+            --chip-border: #cccccc;
+            --chip-hover: #f0f0f0;
+            --input-bg: #ffffff;
+            --tag-card-bg: #f9f9f9;
+            --badge-bg: #f0f1f3;
+            --badge-color: #555555;
+            --badge-border: #d0d3d8;
+        }
+
+        body.dark {
+            --primary: #a8c4dc;
+            --accent: #5b9fd4;
+            --bg: #1a1d23;
+            --card-bg: #23272f;
+            --border: #343a46;
+            --text: #dde1e7;
+            --text-muted: #8a9399;
+            --top-bar-bg: #1e2530;
+            --top-bar-border: #2e3848;
+            --chip-bg: #2c313c;
+            --chip-border: #444c5a;
+            --chip-hover: #353c4a;
+            --input-bg: #2c313c;
+            --tag-card-bg: #1e2530;
+            --badge-bg: #2c313c;
+            --badge-color: #a0aab8;
+            --badge-border: #444c5a;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
-            color: #333;
+            color: var(--text);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            transition: background-color 0.25s, color 0.25s;
         }
 
         /* Top Notification Bar */
         .top-bar {
-            background-color: #e8f4f8;
+            background-color: var(--top-bar-bg);
             color: var(--primary);
             text-align: center;
             padding: 10px;
             font-size: 0.9em;
-            border-bottom: 1px solid #d0e1e8;
+            border-bottom: 1px solid var(--top-bar-border);
+            position: relative;
         }
         .top-bar a { color: var(--accent); font-weight: bold; text-decoration: none; }
         .top-bar a:hover { text-decoration: underline; }
+
+        /* Dark mode toggle */
+        #darkToggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: 1px solid var(--chip-border);
+            border-radius: 20px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 0.85em;
+            color: var(--primary);
+            background-color: var(--chip-bg);
+            transition: all 0.2s;
+        }
+        #darkToggle:hover { background-color: var(--chip-hover); }
 
         .container {
             max-width: 1200px;
@@ -55,10 +106,10 @@
         }
         
         h1 { color: var(--primary); margin-bottom: 5px; }
-        .subtitle { color: #666; font-size: 1.1em; margin-bottom: 10px; }
+        .subtitle { color: var(--text-muted); font-size: 1.1em; margin-bottom: 10px; }
         .upload-container {
-            background: #fff;
-            border: 2px solid #ccc; 
+            background: var(--card-bg);
+            border: 2px solid var(--chip-border);
             border-radius: 8px;
             padding: 40px;
             text-align: center;
@@ -66,7 +117,7 @@
             transition: all 0.3s;
         }
         .upload-container h3 { margin: 0; color: var(--primary); }
-        .upload-container p { color: #666; }
+        .upload-container p { color: var(--text-muted); }
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
             border-left-color: var(--accent);
@@ -105,6 +156,17 @@
             text-align: center;
         }
 
+        /* Trends Section */
+        .trends-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: none;
+        }
+
         /* About Section */
         .about-section {
             background: var(--card-bg);
@@ -121,7 +183,7 @@
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 10px;
         }
-        .tag-card { background: #f9f9f9; padding: 10px; border-radius: 5px; font-size: 0.85em; border-left: 4px solid #ccc; }
+        .tag-card { background: var(--tag-card-bg); color: var(--text); padding: 10px; border-radius: 5px; font-size: 0.85em; border-left: 4px solid #ccc; }
         .tag-card strong { display: block; margin-bottom: 3px; }
 
         /* Controls & Filters */
@@ -144,39 +206,42 @@
 
         input[type="text"], select {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--chip-border);
             border-radius: 4px;
             font-size: 1em;
+            background-color: var(--input-bg);
+            color: var(--text);
         }
         input[type="text"] { flex-grow: 1; }
 
         /* Filter Chips */
         .filter-group { margin-bottom: 15px; }
-        .filter-label { font-size: 0.9em; font-weight: bold; color: #666; margin-bottom: 5px; display: block; }
+        .filter-label { font-size: 0.9em; font-weight: bold; color: var(--text-muted); margin-bottom: 5px; display: block; }
         .chips-container { display: flex; flex-wrap: wrap; gap: 8px; }
-        
+
         .chip {
             padding: 5px 12px;
             border-radius: 15px;
-            border: 1px solid #ccc;
-            background: #fff;
+            border: 1px solid var(--chip-border);
+            background: var(--chip-bg);
+            color: var(--text);
             cursor: pointer;
             font-size: 0.85em;
             user-select: none;
             transition: all 0.2s;
         }
-        .chip:hover { background: #f0f0f0; }
+        .chip:hover { background: var(--chip-hover); }
         .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
         
-        /* Category specific colors */
-        .chip.cat-forecasting.active { background-color: #4878a0; border-color: #4878a0; }
-        .chip.cat-analysis.active    { background-color: #4a8c65; border-color: #4a8c65; }
-        .chip.cat-opt.active         { background-color: #a07c30; border-color: #a07c30; }
-        .chip.cat-faults.active      { background-color: #a04848; border-color: #a04848; }
-        .chip.cat-cyber.active       { background-color: #6a5098; border-color: #6a5098; }
-        .chip.cat-data.active        { background-color: #3a8878; border-color: #3a8878; }
-        .chip.cat-found.active       { background-color: #5e7072; border-color: #5e7072; }
-        .chip.cat-emerging.active    { background-color: #a86030; border-color: #a86030; }
+        /* Category specific colors — Okabe-Ito colorblind-safe */
+        .chip.cat-forecasting.active { background-color: #0072B2; border-color: #0072B2; }
+        .chip.cat-analysis.active    { background-color: #009E73; border-color: #009E73; }
+        .chip.cat-opt.active         { background-color: #E69F00; border-color: #E69F00; color: #333; }
+        .chip.cat-faults.active      { background-color: #56B4E9; border-color: #56B4E9; color: #333; }
+        .chip.cat-cyber.active       { background-color: #D55E00; border-color: #D55E00; }
+        .chip.cat-data.active        { background-color: #CC79A7; border-color: #CC79A7; }
+        .chip.cat-found.active       { background-color: #999999; border-color: #999999; }
+        .chip.cat-emerging.active    { background-color: #F0E442; border-color: #F0E442; color: #333; }
 
         /* Paper List */
         .paper-list { display: flex; flex-direction: column; gap: 15px; }
@@ -194,7 +259,7 @@
         .paper-title { font-size: 1.1em; font-weight: 600; color: var(--primary); text-decoration: none; display: block; margin-bottom: 4px; }
         .paper-title:hover { text-decoration: underline; }
 
-        .paper-meta { font-size: 0.85em; color: #666; margin: 0 0 10px 0; }
+        .paper-meta { font-size: 0.85em; color: var(--text-muted); margin: 0 0 10px 0; }
 
         .paper-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
@@ -208,7 +273,7 @@
         .item-type-badge.journal,
         .item-type-badge.conference,
         .item-type-badge.preprint,
-        .item-type-badge.other { background: #f0f1f3; color: #555; border: 1px solid #d0d3d8; }
+        .item-type-badge.other { background: var(--badge-bg); color: var(--badge-color); border: 1px solid var(--badge-border); }
 
         .paper-tag {
             display: inline-block;
@@ -228,10 +293,11 @@
 <body>
 
 <div class="top-bar">
-    Did you publish something? Is your paper wrongly categorized? 
+    Did you publish something? Is your paper wrongly categorized?
     <a href="https://github.com/KIT-IAI-DRACOS/graph-power-systems/issues/new" target="_blank">
         <i class="fab fa-github"></i> Create a GitHub Issue
     </a>
+    <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">🌙 Dark</button>
 </div>
 
 <div class="container">
@@ -280,32 +346,37 @@
         </div>
     </div>
 
+    <div class="trends-section" id="trendsSection">
+        <div class="chart-title">Emerging Trends (Share of Annual Publications, 2021–2025)</div>
+        <div id="trendsChart"></div>
+    </div>
+
     <section class="about-section">
         <details>
             <summary><i class="fas fa-info-circle"></i> Category Legend</summary>
             <div class="tag-desc">
-                <div class="tag-card" style="border-left-color: #4878a0;">
+                <div class="tag-card" style="border-left-color: #0072B2;">
                     <strong>Forecasting</strong> Input prediction (Load, Wind, PV, Price).
                 </div>
-                <div class="tag-card" style="border-left-color: #4a8c65;">
+                <div class="tag-card" style="border-left-color: #009E73;">
                     <strong>Grid Topology & State</strong> Physics emulation, Power Flow, State Estimation.
                 </div>
-                <div class="tag-card" style="border-left-color: #a07c30;">
+                <div class="tag-card" style="border-left-color: #E69F00;">
                     <strong>Optimization & Control</strong> OPF, Voltage Control, Unit Commitment.
                 </div>
-                <div class="tag-card" style="border-left-color: #a04848;">
+                <div class="tag-card" style="border-left-color: #56B4E9;">
                     <strong>Stability & Reliability</strong> Faults, Transient stability, Cascading failures.
                 </div>
-                <div class="tag-card" style="border-left-color: #6a5098;">
+                <div class="tag-card" style="border-left-color: #D55E00;">
                     <strong>Cybersecurity</strong> FDIA, Theft detection, Cyber-physical attacks.
                 </div>
-                <div class="tag-card" style="border-left-color: #3a8878;">
+                <div class="tag-card" style="border-left-color: #CC79A7;">
                     <strong>Data Management</strong> Imputation, Synthetic data, Digital Twins.
                 </div>
-                <div class="tag-card" style="border-left-color: #5e7072;">
+                <div class="tag-card" style="border-left-color: #999999;">
                     <strong>Foundational</strong> Surveys, Benchmarks, Datasets, Theory.
                 </div>
-                <div class="tag-card" style="border-left-color: #a86030;">
+                <div class="tag-card" style="border-left-color: #F0E442;">
                     <strong>Emerging Apps</strong> Markets, Planning, Asset Management.
                 </div>
             </div>
@@ -338,16 +409,17 @@
         '#emerging-apps': 'Emerging Apps'
     };
 
+    // Okabe-Ito colorblind-safe palette
     const COLOR_MAP = {
-        'Forecasting': '#4878a0',
-        'Grid Topology & State': '#4a8c65',
-        'Optimization & Control': '#a07c30',
-        'Stability & Reliability': '#a04848',
-        'Cybersecurity': '#6a5098',
-        'Data Management': '#3a8878',
-        'Foundational & Surveys': '#5e7072',
-        'Emerging Apps': '#a86030',
-        'Other': '#8a9399'
+        'Forecasting': '#0072B2',
+        'Grid Topology & State': '#009E73',
+        'Optimization & Control': '#E69F00',
+        'Stability & Reliability': '#56B4E9',
+        'Cybersecurity': '#D55E00',
+        'Data Management': '#CC79A7',
+        'Foundational & Surveys': '#999999',
+        'Emerging Apps': '#F0E442',
+        'Other': '#bbbbbb'
     };
 
     const CLASS_MAP = {
@@ -361,10 +433,19 @@
         'Emerging Apps': 'cat-emerging'
     };
 
+    const TREND_YEARS = [2021, 2022, 2023, 2024, 2025];
+
+    const TRENDS = {
+        'Reinforcement Learning':          /\breinforcement[\s-]?learn|\bRL\b/i,
+        'Physics-Informed Neural Networks': /physics[\s-]inform|physics[\s-]guid|physics[\s-]constrain|physics[\s-]embed|physics[\s-]aware|physics[\s-]bas|\bPINN\b/i,
+        'Explainability & Interpretability': /\bexplainab|\binterpretab|\bXAI\b|\bexplainable AI/i,
+    };
+
     let allPapers = [];
+    let allRawPapers = [];  // all valid-year papers before category filter, for trend denominators
     let activeCategories = new Set();
     let activeYears = new Set();
-    let charts = { pie: null, bar: null };
+    let charts = { pie: null, bar: null, trends: null };
 
     // --- Helpers ---
 
@@ -411,14 +492,14 @@
     function processData(results) {
         const rawData = results.data;
         
-        allPapers = rawData
-            .filter(row => row['Title'] && (row['Publication Year'] || row['Date'])) 
+        const mapped = rawData
+            .filter(row => row['Title'] && (row['Publication Year'] || row['Date']))
             .map(row => {
                 const category = getCategory(row['Manual Tags']);
-                
+
                 let authors = row['Author'] || "";
                 if (authors.includes(';')) authors = authors.replace(/;/g, ', ');
-                
+
                 let year = row['Publication Year'];
                 if (!year && row['Date']) {
                     const match = row['Date'].match(/\d{4}/);
@@ -435,8 +516,10 @@
                     itemType: row['Item Type'] || '',
                     tags: row['Manual Tags']
                 };
-            })
-            .filter(p => p.category !== 'Other' && p.year > 0);
+            });
+
+        allRawPapers = mapped.filter(p => p.year > 0);
+        allPapers = mapped.filter(p => p.category !== 'Other' && p.year > 0);
 
         allPapers.sort((a, b) => b.year - a.year);
 
@@ -444,9 +527,11 @@
         document.getElementById('loadingSection').style.display = 'none';
         document.getElementById('dashboardSection').style.display = 'grid';
         document.getElementById('controlsSection').style.display = 'block';
+        document.getElementById('trendsSection').style.display = 'block';
 
         initFilters();
         updateDisplay();
+        renderTrendsChart();
     }
 
     function initFilters() {
@@ -562,18 +647,42 @@
         const sortedYears = Object.keys(yearCounts).sort();
         const barData = sortedYears.map(y => yearCounts[y]);
 
-        // --- Render Pie ---
+        // --- Render Donut ---
+        const totalPapers = pieData.reduce((a, b) => a + b, 0);
         var pieOptions = {
             series: pieData,
             labels: sortedCats,
             chart: {
-                type: 'pie',
-                height: 320,
+                type: 'donut',
+                height: 360,
                 toolbar: { show: true, tools: { download: true } }
             },
             colors: pieColors,
-            dataLabels: { enabled: false },
-            legend: { position: 'bottom' }
+            dataLabels: {
+                enabled: true,
+                formatter: (val) => val >= 5 ? val.toFixed(1) + '%' : '',
+                style: { fontSize: '13px', colors: ['#fff'] },
+                dropShadow: { enabled: false }
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: '52%',
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                label: 'papers',
+                                fontSize: '14px',
+                                color: '#444',
+                                formatter: () => totalPapers
+                            }
+                        }
+                    }
+                }
+            },
+            legend: { position: 'bottom', fontSize: '13px' },
+            tooltip: { y: { formatter: (val) => val + ' papers' } }
         };
 
         if (charts.pie) charts.pie.destroy();
@@ -591,7 +700,7 @@
             plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
             dataLabels: { enabled: false },
             xaxis: { categories: sortedYears, labels: { rotate: -45 } },
-            colors: ['#2c3e50']
+            colors: ['#0072B2']
         };
 
         if (charts.bar) charts.bar.destroy();
@@ -599,8 +708,65 @@
         charts.bar.render();
     }
 
+    function renderTrendsChart() {
+        // Count total papers per trend year (denominator = all valid-year papers)
+        const totalPerYear = {};
+        TREND_YEARS.forEach(y => { totalPerYear[y] = 0; });
+        allRawPapers.forEach(p => {
+            if (TREND_YEARS.includes(p.year)) totalPerYear[p.year]++;
+        });
+
+        // Count matches per trend per year
+        const series = Object.entries(TRENDS).map(([name, pattern]) => {
+            const data = TREND_YEARS.map(y => {
+                const matches = allRawPapers.filter(p => p.year === y && pattern.test(p.title)).length;
+                const total = totalPerYear[y];
+                return total ? parseFloat((100 * matches / total).toFixed(1)) : 0;
+            });
+            return { name, data };
+        });
+
+        const options = {
+            series,
+            chart: {
+                type: 'bar',
+                height: 300,
+                toolbar: { show: true, tools: { download: true } },
+            },
+            plotOptions: { bar: { borderRadius: 3, columnWidth: '70%', grouped: true } },
+            dataLabels: { enabled: false },
+            xaxis: { categories: TREND_YEARS },
+            yaxis: { title: { text: 'Share of annual publications (%)' }, min: 0 },
+            colors: ['#0072B2', '#E69F00', '#009E73'],
+            legend: { position: 'top' },
+            tooltip: { y: { formatter: v => v.toFixed(1) + '%' } },
+        };
+
+        if (charts.trends) charts.trends.destroy();
+        charts.trends = new ApexCharts(document.querySelector('#trendsChart'), options);
+        charts.trends.render();
+    }
+
+    // --- Dark mode ---
+    function applyDark(dark) {
+        document.body.classList.toggle('dark', dark);
+        const btn = document.getElementById('darkToggle');
+        if (btn) btn.textContent = dark ? '☀️ Light' : '🌙 Dark';
+    }
+
+    function toggleDark() {
+        const isDark = !document.body.classList.contains('dark');
+        localStorage.setItem('darkMode', isDark);
+        applyDark(isDark);
+    }
+
     // --- Auto-Run when the page is fully loaded ---
-    document.addEventListener('DOMContentLoaded', autoLoadCSV);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Restore saved preference; default is light
+        const saved = localStorage.getItem('darkMode');
+        applyDark(saved === 'true');
+        autoLoadCSV();
+    });
 </script>
 
 </body>
