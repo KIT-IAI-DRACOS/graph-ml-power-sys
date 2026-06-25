@@ -33,11 +33,12 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.5;
             transition: background-color 0.25s, color 0.25s;
         }
 
@@ -75,7 +76,7 @@
         .section-toggle.open .arrow { transform: rotate(180deg); }
 
         .container {
-            max-width: 100%;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 12px 24px;
         }
@@ -287,6 +288,7 @@
     <header>
         <h1>Graph Machine Learning and Power Systems</h1>
         <div class="subtitle">A curated literature review and resource list</div>
+        <div class="subtitle" style="margin-top: 4px;">Companion webpage to paper: TBA.</div>
     </header>
 
     <div class="upload-container" id="loadingSection">
@@ -645,7 +647,7 @@
             labels: sortedCats,
             chart: {
                 type: 'donut',
-                height: 360,
+                height: 300,
                 toolbar: { show: true, tools: { download: true } }
             },
             colors: pieColors,
@@ -699,7 +701,7 @@
             series: [{ name: 'Publications', data: barData }],
             chart: {
                 type: 'bar',
-                height: 320,
+                height: 270,
                 toolbar: { show: true, tools: { download: true } }
             },
             plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
@@ -735,7 +737,7 @@
             series,
             chart: {
                 type: 'bar',
-                height: 300,
+                height: 250,
                 toolbar: { show: true, tools: { download: true } },
             },
             plotOptions: { bar: { borderRadius: 3, columnWidth: '70%', grouped: true } },
